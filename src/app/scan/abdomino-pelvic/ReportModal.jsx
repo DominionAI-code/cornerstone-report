@@ -1,0 +1,307 @@
+"use client";
+
+import { forwardRef } from "react";
+import HeaderSection from "@/components/HeaderSection";
+
+const ReportModal = ({
+  isOpen,
+  onClose,
+  patientData,
+  sectionsData,
+  comments,
+  conclusion,
+  reportRef,
+  onDownload,
+  isLoading,
+}) => {
+  if (!isOpen) return null;
+
+  const completedSections = sectionsData.filter((section) =>
+    section.note.trim()
+  );
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+        {/* Modal Header */}
+        <div className="no-print flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Abdominopelvic Scan Report Preview
+          </h2>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onDownload}
+              disabled={isLoading}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+            >
+              {isLoading ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              )}
+              {isLoading ? "Generating..." : "Download PDF"}
+            </button>
+            <button
+              onClick={onClose}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              Close
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
+          <ReportContent
+            ref={reportRef}
+            patientData={patientData}
+            sectionsData={completedSections}
+            comments={comments}
+            conclusion={conclusion}
+          />
+        </div>
+      </div>
+
+      {/* Print Styles */}
+      <style jsx global>{`
+        @media print {
+          @page {
+            size: A4;
+            margin: 8mm;
+          }
+
+          body * {
+            visibility: hidden;
+          }
+
+          .printable-content,
+          .printable-content * {
+            visibility: visible;
+          }
+
+          .printable-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: white;
+            transform: scale(0.92);
+            transform-origin: top left;
+          }
+
+          .no-print {
+            display: none !important;
+          }
+
+          .avoid-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
+          }
+
+          .print-compact {
+            font-size: 10pt !important;
+            line-height: 1.2 !important;
+          }
+
+          .print-header {
+            font-size: 11pt !important;
+            margin-bottom: 6px !important;
+          }
+
+          .print-section {
+            margin-bottom: 6px !important;
+          }
+
+          .print-section h3 {
+            font-size: 11pt !important;
+            margin-bottom: 3px !important;
+            padding-bottom: 1px !important;
+          }
+
+          .print-findings {
+            columns: 2;
+            column-gap: 15px;
+            column-fill: balance;
+          }
+
+          .print-findings .section-item {
+            break-inside: avoid;
+            margin-bottom: 8px;
+          }
+        }
+
+        .printable-content {
+          width: 210mm;
+          max-height: 285mm;
+          padding: 10mm;
+          margin: 0 auto;
+          background: white;
+          font-family: "Times New Roman", serif;
+          font-size: 10pt;
+          line-height: 1.3;
+          color: #000;
+          overflow: hidden;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+const ReportContent = forwardRef(
+  ({ patientData, sectionsData, comments, conclusion }, ref) => {
+    const currentDate = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    return (
+      <div ref={ref} className="printable-content print-compact">
+        <div className="print-header mb-3 avoid-break">
+          <HeaderSection />
+          <div className="border-t-2 border-b-2 border-gray-300 py-1 my-2 text-center">
+            <h2 className="text-base font-bold text-gray-700">
+              ABDOMINOPELVIC ULTRASOUND SCAN REPORT
+            </h2>
+          </div>
+        </div>
+
+        <div className="print-section mb-3 avoid-break">
+          <h3 className="text-l font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
+            PATIENT INFORMATION
+          </h3>
+          <div className="grid grid-cols-3 gap-2 text-s">
+            <div>
+              <p>
+                <strong>Name:</strong> {patientData.patientName || "N/A"}
+              </p>
+              <p>
+                <strong>Age:</strong> {patientData.patientAge || "N/A"}
+              </p>
+            </div>
+            <div>
+              <p>
+                <strong>Scan Date:</strong> {patientData.date || "N/A"}
+              </p>
+              <p>
+                <strong>Referring Hospital:</strong>{" "}
+                {patientData.refHospital || "N/A"}
+              </p>
+            </div>
+            <div>
+              <p>
+                <strong>Referred By:</strong> {patientData.referredBy || "N/A"}
+              </p>
+              {patientData.indication && (
+                <div className="mt-1">
+                  <p className="text-l">
+                    <strong>Clinical Indication:</strong>{" "}
+                    {patientData.indication}
+                  </p>
+                </div>
+              )}
+              {/* <p>
+                <strong>Report Date:</strong> {currentDate}
+              </p> */}
+            </div>
+          </div>
+        </div>
+
+        <div className="print-section mb-3">
+          <h3 className="text-l font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+            ULTRASOUND FINDINGS
+          </h3>
+
+          {sectionsData.length > 0 ? (
+            <div className="print-findings">
+              {sectionsData.map((section, index) => (
+                <div key={index} className="section-item avoid-break">
+                  <h4 className="font-bold text-gray-700 mb-1 text-l">
+                    {section.title.toUpperCase()}:
+                  </h4>
+                  <div className="ml-1 text-l text-gray-800 leading-tight">
+                    {section.note.split("\n").map((line, lineIndex) => (
+                      <p key={lineIndex} className="mb-0.5">
+                        {line.trim() || "\u00A0"}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-600 italic text-l">No findings recorded.</p>
+          )}
+        </div>
+
+        {/* New Comments and Conclusion */}
+        <div className="print-section mb-3 avoid-break">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <h3 className="text-l font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
+                COMMENTS
+              </h3>
+              <div className="min-h-[35px] border border-gray-300 p-1 text-l">
+                <p className="text-gray-700">{comments || "No comments."}</p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-l font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
+                CONCLUSION
+              </h3>
+              <div className="min-h-[35px] border border-gray-300 p-1 text-l">
+                <p className="text-gray-700">
+                  {conclusion || "No conclusion."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 avoid-break">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <div className="border-t border-gray-400 pt-1 text-center">
+                <p className="text-l font-semibold">Sonographer</p>
+                <p className="text-l text-gray-600">Signature:</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-3 text-center text-l text-gray-500">
+            <p>Report generated on: {new Date().toLocaleString()}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
+
+ReportContent.displayName = "ReportContent";
+
+export default ReportModal;
