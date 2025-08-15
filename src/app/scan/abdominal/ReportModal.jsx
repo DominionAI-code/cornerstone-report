@@ -93,7 +93,7 @@ const ReportModal = ({
         @media print {
           @page {
             size: A4;
-            margin: 10mm;
+            margin: 2mm;
           }
           body * {
             visibility: hidden;
@@ -120,34 +120,34 @@ const ReportModal = ({
           }
           .print-compact {
             font-size: 9pt !important;
-            line-height: 1.3 !important;
+            line-height: 1.0 !important;
           }
           .print-header {
-            font-size: 11pt !important;
-            margin-bottom: 8px !important;
+            font-size: 9pt !important;
+            margin-bottom: 1px !important;
           }
           .print-section {
-            margin-bottom: 8px !important;
+            margin-bottom: 1px !important;
           }
           .print-section h3 {
-            font-size: 10pt !important;
-            margin-bottom: 4px !important;
-            padding-bottom: 2px !important;
+            font-size: 9pt !important;
+            margin-bottom: 1px !important;
+            padding-bottom: 1px !important;
           }
           .print-section h4 {
             font-size: 9pt !important;
-            margin-bottom: 2px !important;
+            margin-bottom: 1px !important;
           }
         }
         .printable-content {
           width: 210mm;
           max-height: 270mm;
-          padding: 12mm;
+          padding: 7mm;
           margin: 0 auto;
           background: white;
           font-family: "Times New Roman", serif;
-          font-size: 10pt;
-          line-height: 1.4;
+          font-size: 9pt;
+          line-height: 1.0;
           color: #000;
           overflow: hidden;
         }
@@ -168,21 +168,21 @@ const ReportContent = forwardRef(
     return (
       <div ref={ref} className="printable-content print-compact">
         {/* Header */}
-        <div className="print-header mb-4 avoid-break">
+        <div className="print-header mb-1 avoid-break">
           <HeaderSection />
           <div className="text-center">
-            <h2 className="text-lg font-bold text-gray-700">
+            <h2 className="text-base font-bold text-gray-700">
               ABDOMINAL ULTRASOUND SCAN REPORT
             </h2>
           </div>
         </div>
 
         {/* Patient Information */}
-        <div className="print-section mb-4 avoid-break">
-          <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+        <div className="print-section mb-1 avoid-break">
+          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
             PATIENT INFORMATION
           </h3>
-          <div className="grid grid-cols-3 gap-2 text-xs">
+          <div className="grid grid-cols-3 gap-2 text-base">
             <div>
               <p>
                 <strong>Name:</strong> {patientData.patientName || "N/A"}
@@ -205,7 +205,7 @@ const ReportContent = forwardRef(
                 <strong>Referred By:</strong> {patientData.referredBy || "N/A"}
               </p>
               {patientData.indication && (
-                <p className="text-xs">
+                <p className="text-base">
                   <strong>Clinical Indication:</strong> {patientData.indication}
                 </p>
               )}
@@ -214,18 +214,18 @@ const ReportContent = forwardRef(
         </div>
 
         {/* Scan Findings */}
-        <div className="print-section mb-4">
-          <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+        <div className="print-section mb-1">
+          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
             ULTRASOUND FINDINGS
           </h3>
           {sectionsData.length > 0 ? (
             <div className="space-y-2">
               {sectionsData.map((section, index) => (
                 <div key={index} className="avoid-break">
-                  <h4 className="font-bold text-gray-700 mb-1 text-xs">
+                  <h4 className="font-bold text-gray-700 mb-1 text-sm">
                     {section.title.toUpperCase()}:
                   </h4>
-                  <div className="ml-2 text-xs text-gray-800 leading-snug">
+                  <div className="ml-2 text-sm text-gray-800 leading-snug">
                     {section.note.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex} className="mb-0.5">
                         {line.trim() || "\u00A0"}
@@ -236,30 +236,30 @@ const ReportContent = forwardRef(
               ))}
             </div>
           ) : (
-            <p className="text-gray-600 italic text-xs">
+            <p className="text-gray-600 italic text-sm">
               No findings recorded.
             </p>
           )}
         </div>
 
         {/* ✅ Comments & Conclusion Section */}
-        <div className="print-section mb-4 avoid-break">
+        <div className="print-section mb-1 avoid-break">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
                 ADDITIONAL COMMENTS
               </h3>
-              <div className="min-h-[70px] border border-gray-300 p-2 text-xs">
+              <div className="min-h-[70px] border border-gray-300 p-1 text-sm">
                 <p className="text-gray-800">
                   {comments?.trim() || "No additional comments provided."}
                 </p>
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
                 CONCLUSION
               </h3>
-              <div className="min-h-[70px] border border-gray-300 p-2 text-xs">
+              <div className="min-h-[70px] border border-gray-300 p-1 text-sm">
                 <p className="text-gray-800">
                   {conclusion?.trim() || "No conclusion provided."}
                 </p>
@@ -270,15 +270,12 @@ const ReportContent = forwardRef(
 
         {/* Signatures */}
         <div className="mt-1 avoid-break">
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <div className="border-t border-gray-400 pt-1 text-center">
-                <p className="text-xs font-semibold">Sonographer Signature:</p>
-                <p className="text-xs text-gray-600"></p>
-              </div>
-            </div>
+          <div className="text-center mt-4">
+            <p className="text-sm font-semibold">
+              Sonographer Signature: ..........................
+            </p>
           </div>
-          <div className="mt-4 text-center text-xs text-gray-500">
+          <div className="mt-2 text-center text-sm text-gray-500">
             <p>Report generated on: {new Date().toLocaleString()}</p>
           </div>
         </div>

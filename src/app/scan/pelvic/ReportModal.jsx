@@ -115,7 +115,7 @@ const PelvicReportModal = ({
         @media print {
           @page {
             size: A4;
-            margin: 10mm;
+            margin: 5mm;
           }
           body * {
             visibility: hidden;
@@ -141,23 +141,23 @@ const PelvicReportModal = ({
             break-inside: avoid;
           }
           .print-compact {
-            font-size: 9pt !important;
-            line-height: 1.3 !important;
+            font-size: 12pt !important;
+            line-height: 1.0 !important;
           }
           .print-header {
-            font-size: 11pt !important;
-            margin-bottom: 8px !important;
+            font-size: 13pt !important;
+            margin-bottom: 2px !important;
           }
           .print-section {
-            margin-bottom: 8px !important;
+            margin-bottom: 2px !important;
           }
           .print-section h3 {
-            font-size: 10pt !important;
-            margin-bottom: 4px !important;
+            font-size: 12pt !important;
+            margin-bottom: 2px !important;
             padding-bottom: 2px !important;
           }
           .print-section h4 {
-            font-size: 9pt !important;
+            font-size: 12pt !important;
             margin-bottom: 2px !important;
           }
         }
@@ -168,8 +168,8 @@ const PelvicReportModal = ({
           margin: 0 auto;
           background: white;
           font-family: "Times New Roman", serif;
-          font-size: 10pt;
-          line-height: 1.4;
+          font-size: 12pt;
+          line-height: 1.0;
           color: #000;
           overflow: hidden;
         }
@@ -194,10 +194,10 @@ const PelvicReportContent = forwardRef(
 
         {/* Patient Information */}
         <div className="print-section mb-4 avoid-break">
-          <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+          <h3 className="text-base font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
             PATIENT INFORMATION
           </h3>
-          <div className="grid grid-cols-3 gap-2 text-xs">
+          <div className="grid grid-cols-3 gap-2 text-base">
             <div>
               <p>
                 <strong>Name:</strong> {patientData.patientName || "N/A"}
@@ -220,7 +220,7 @@ const PelvicReportContent = forwardRef(
                 <strong>Referred By:</strong> {patientData.referredBy || "N/A"}
               </p>
               {patientData.indication && (
-                <p className="text-xs">
+                <p className="text-base">
                   <strong>Indication:</strong> {patientData.indication}
                 </p>
               )}
@@ -230,17 +230,17 @@ const PelvicReportContent = forwardRef(
 
         {/* Scan Findings */}
         <div className="print-section mb-4">
-          <h3 className="text-sm font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+          <h3 className="text-base font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
             ULTRASOUND FINDINGS
           </h3>
           {sectionsData?.length > 0 ? (
             <div className="space-y-2">
               {sectionsData.map((section, index) => (
                 <div key={index} className="avoid-break">
-                  <h4 className="font-bold text-gray-700 mb-1 text-xs">
+                  <h4 className="font-bold text-gray-700 mb-1 text-base">
                     {section.title.toUpperCase()}:
                   </h4>
-                  <div className="ml-2 text-xs text-gray-800 leading-snug">
+                  <div className="ml-2 text-base text-gray-800 leading-snug">
                     {section.note.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex} className="mb-0.5">
                         {line.trim() || "\u00A0"}
@@ -251,7 +251,7 @@ const PelvicReportContent = forwardRef(
               ))}
             </div>
           ) : (
-            <p className="text-gray-600 italic text-xs">
+            <p className="text-gray-600 italic text-base">
               No findings recorded.
             </p>
           )}
@@ -260,14 +260,11 @@ const PelvicReportContent = forwardRef(
         {/* Signature */}
         <div className="mt-1 avoid-break">
           <div className="grid grid-cols-2 gap-6">
-            <div>
-              <div className="border-t border-gray-400 pt-1 text-center">
-                <p className="text-xs font-semibold">Sonographer Signature:</p>
-                <p className="text-xs text-gray-600"></p>
-              </div>
+            <div className="mt-8 text-center">
+              <p className="text-base font-semibold">Sonographer Signature:</p>
             </div>
           </div>
-          <div className="mt-4 text-center text-xs text-gray-500">
+          <div className="mt-8 text-center text-base text-gray-500">
             <p>Report generated on: {new Date().toLocaleString()}</p>
           </div>
         </div>

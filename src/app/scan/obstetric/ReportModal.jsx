@@ -100,7 +100,7 @@ const ReportModal = ({
         @media print {
           @page {
             size: A4;
-            margin: 15mm; /* Adds a safe printer margin */
+            margin: 8mm; /* Adds a safe printer margin */
           }
 
           body * {
@@ -131,31 +131,31 @@ const ReportModal = ({
           }
 
           .print-compact {
-            font-size: 14pt !important;
-            line-height: 1.5 !important;
+            font-size: 10pt !important;
+            line-height: 1.0 !important;
           }
 
           .print-header {
-            font-size: 16pt !important;
-            margin-bottom: 12px !important;
+            font-size: 11pt !important;
+            margin-bottom: 2px !important;
           }
 
           .print-section {
-            margin-bottom: 20px !important;
-            padding-bottom: 10px !important;
+            margin-bottom: 2px !important;
+            padding-bottom: 1px !important;
             border-bottom: 1px solid #333 !important;
           }
 
           .print-section h3 {
-            font-size: 15pt !important;
-            margin-bottom: 6px !important;
-            padding-bottom: 4px !important;
+            font-size: 11pt !important;
+            margin-bottom: 1px !important;
+            padding-bottom: 1px !important;
             border-bottom: 1px solid #666 !important;
           }
 
           .print-section h4 {
-            font-size: 14pt !important;
-            margin-bottom: 4px !important;
+            font-size: 11pt !important;
+            margin-bottom: 2px !important;
           }
 
           .diagram-space {
@@ -171,8 +171,8 @@ const ReportModal = ({
           margin: 0 auto;
           background: white;
           font-family: "Times New Roman", serif;
-          font-size: 14pt;
-          line-height: 1.5;
+          font-size: 10pt;
+          line-height: 1.0;
           color: #000;
         }
 
@@ -239,10 +239,10 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
 
       {/* Patient Information */}
       <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           PATIENT INFORMATION
         </h3>
-        <div className="grid grid-cols-3 gap-2 text-lg">
+        <div className="grid grid-cols-3 gap-2 text-base">
           <div>
             <p>
               <strong>Name:</strong> {form.patientName || "N/A"}
@@ -265,7 +265,7 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
               <strong>Referred By:</strong> {form.referredBy || "N/A"}
             </p>
             {form.indication && (
-              <p className="text-lg">
+              <p className="text-base">
                 <strong>Clinical Indication:</strong> {form.indication}
               </p>
             )}
@@ -274,11 +274,11 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
       </div>
 
       {/* Basic Fetal Assessment */}
-      <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+      <div className="print-section mb-1 avoid-break">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           BASIC FETAL ASSESSMENT
         </h3>
-        <div className="grid grid-cols-3 gap-3 text-lg">
+        <div className="grid grid-cols-3 gap-3 text-base">
           <div>
             <p>
               <strong>Foetus:</strong> {form.foetus || "N/A"}
@@ -307,11 +307,11 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
       </div>
 
       {/* Gestational Assessment */}
-      <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+      <div className="print-section mb-1 avoid-break">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           GESTATIONAL ASSESSMENT
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-lg">
+        <div className="grid grid-cols-2 gap-4 text-base">
           <div>
             <p>
               <strong>LMP:</strong> {form.lmp || "N/A"}
@@ -329,11 +329,11 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
       </div>
 
       {/* Biometric Measurements */}
-      <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+      <div className="print-section mb-1 avoid-break">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           BIOMETRIC MEASUREMENTS
         </h3>
-        <div className="grid grid-cols-2 gap-4 text-lg">
+        <div className="grid grid-cols-2 gap-4 text-base">
           <div>
             <p>
               <strong>BPD:</strong> {form.bpd ? `${form.bpd} mm` : "N/A"}
@@ -360,10 +360,10 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
 
       {/* Fetal Characteristics */}
       <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           FETAL CHARACTERISTICS & ANOMALIES
         </h3>
-        <div className="border border-gray-300 p-2 text-xs min-h-[40px]">
+        <div className="border border-gray-300 p-2 text-base min-h-[40px]">
           <p className="text-gray-800">
             {form.FetalAnomalies ||
               "No anomalies noted. All structures appear normal."}
@@ -372,23 +372,23 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
       </div>
 
       {/* Comments & Conclusion */}
-      <div className="print-section mb-3 avoid-break">
+      <div className="print-section mb-1 avoid-break">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+            <h3 className="text-base font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
               ADDITIONAL COMMENTS
             </h3>
-            <div className="min-h-[50px] border border-gray-300 p-2 text-lg">
+            <div className="min-h-[50px] border border-gray-300 p-2 text-base">
               <p className="text-gray-800">
                 {form.comments?.trim() || "No additional comments provided."}
               </p>
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+            <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
               CONCLUSION
             </h3>
-            <div className="min-h-[50px] border border-gray-300 p-2 text-xs">
+            <div className="min-h-[50px] border border-gray-300 p-2 text-base">
               <p className="text-gray-800">
                 {form.conclusion?.trim() ||
                   "Normal obstetric ultrasound scan for gestational age."}
@@ -400,7 +400,7 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
 
       {/* Ultrasound Images/Diagram Space */}
       <div className="print-section mb-3 avoid-break">
-        <h3 className="text-lg font-bold text-gray-800 mb-2 border-b border-gray-300 pb-1">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           ULTRASOUND IMAGES / DIAGRAM
         </h3>
         <div className="border-2 border-dashed border-gray-300 diagram-space flex items-center justify-center bg-gray-50">
@@ -430,11 +430,11 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
         <div className="grid grid-cols-2 gap-6">
           <div>
             <div className="border-t border-gray-400 pt-2 text-center">
-              <p className="text-xs font-semibold">Sonographer Signature:</p>
+              <p className="text-base font-semibold">Sonographer Signature:</p>
             </div>
           </div>
         </div>
-        <div className="mt-3 text-center text-xs text-gray-500">
+        <div className="mt-1 text-center text-xs text-gray-500">
           <p>Report generated on: {currentDate}</p>
           <p>This is a computer-generated medical report.</p>
         </div>
