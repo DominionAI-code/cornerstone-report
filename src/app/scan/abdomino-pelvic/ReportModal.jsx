@@ -124,12 +124,12 @@ const ReportModal = ({
           }
 
           .print-compact {
-            font-size: 9pt !important;
-            line-height: 1.0 !important;
+            font-size: 11pt !important;
+            line-height: 1 !important;
           }
 
           .print-header {
-            font-size: 9pt !important;
+            font-size: 11pt !important;
             margin-bottom: 2px !important;
           }
 
@@ -138,7 +138,7 @@ const ReportModal = ({
           }
 
           .print-section h3 {
-            font-size: 9pt !important;
+            font-size: 11pt !important;
             margin-bottom: 1px !important;
             padding-bottom: 1px !important;
           }
@@ -162,8 +162,8 @@ const ReportModal = ({
           margin: 0 auto;
           background: white;
           font-family: "Times New Roman", serif;
-          font-size: 9pt;
-          line-height: 1.0;
+          font-size: 11pt;
+          line-height: 1;
           color: #000;
           overflow: hidden;
         }
@@ -184,13 +184,13 @@ const ReportContent = forwardRef(
       <div ref={ref} className="printable-content print-compact">
         <div className="print-header avoid-break">
           <HeaderSection />
-          <h2 className="text-sm font-bold text-gray-700">
+          <h2 className="text-base font-bold text-gray-700">
             ABDOMINOPELVIC ULTRASOUND SCAN REPORT
           </h2>
         </div>
 
         <div className="print-section avoid-break">
-          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
+          <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
             PATIENT INFORMATION
           </h3>
           <div className="grid grid-cols-3 gap-2 text-sm">
@@ -217,7 +217,7 @@ const ReportContent = forwardRef(
               </p>
               {patientData.indication && (
                 <div className="mt-1">
-                  <p className="text-sm">
+                  <p className="text-base">
                     <strong>Clinical Indication:</strong>{" "}
                     {patientData.indication}
                   </p>
@@ -228,7 +228,7 @@ const ReportContent = forwardRef(
         </div>
 
         <div className="print-section">
-          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+          <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
             ULTRASOUND FINDINGS
           </h3>
 
@@ -236,10 +236,10 @@ const ReportContent = forwardRef(
             <div className="print-findings">
               {sectionsData.map((section, index) => (
                 <div key={index} className="section-item avoid-break">
-                  <h4 className="font-bold text-gray-700 mb-1 text-sm">
+                  <h4 className="font-bold text-gray-700 mb-1 text-base">
                     {section.title.toUpperCase()}:
                   </h4>
-                  <div className="ml-1 text-sm text-gray-800 leading-tight">
+                  <div className="ml-1 text-base text-gray-800 leading-tight">
                     {section.note.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex} className="mb-0.5">
                         {line.trim() || "\u00A0"}
@@ -250,7 +250,7 @@ const ReportContent = forwardRef(
               ))}
             </div>
           ) : (
-            <p className="text-gray-600 italic text-sm">
+            <p className="text-gray-600 italic text-base">
               No findings recorded.
             </p>
           )}
@@ -260,15 +260,15 @@ const ReportContent = forwardRef(
         <div className="print-section mb-1 avoid-break">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+              <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
                 COMMENTS
               </h3>
-              <div className="min-h-[35px] border border-gray-300 p-1 text-sm">
+              <div className="min-h-[35px] border border-gray-300 p-1 text-base">
                 <p className="text-gray-700">{comments || "No comments."}</p>
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+              <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
                 CONCLUSION
               </h3>
               <div className="min-h-[35px] border border-gray-300 p-1 sm">

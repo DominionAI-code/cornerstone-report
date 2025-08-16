@@ -14,7 +14,7 @@ import Stomach from "@/components/Stomach";
 import PeritonealCavity from "@/components/PeritonealCavity";
 import ReportModal from "./ReportModal";
 
-// ✅ Fixed: Static color classes instead of dynamic ones
+// ✅ Static color classes
 const colorClasses = {
   emerald: "bg-gradient-to-r from-emerald-400 to-emerald-600",
   blue: "bg-gradient-to-r from-blue-400 to-blue-600",
@@ -50,16 +50,12 @@ export default function AbdominalScanPage() {
     referredBy: "",
   });
 
-  // ✅ Improved input change handler with validation
+  // ✅ Input change handler
   const handlePatientInputChange = useCallback(
     (e) => {
       const { name, value } = e.target;
       setPatientData((prev) => ({ ...prev, [name]: value }));
-
-      // Clear errors when user starts typing
-      if (errors.length > 0) {
-        setErrors([]);
-      }
+      if (errors.length > 0) setErrors([]);
     },
     [errors.length]
   );
@@ -78,7 +74,7 @@ export default function AbdominalScanPage() {
 
   const reportRef = useRef();
 
-  // ✅ Improved PDF download with better error handling
+  // ✅ PDF download
   const handleDownloadPDF = async () => {
     if (!reportRef.current) return;
 
@@ -110,7 +106,7 @@ export default function AbdominalScanPage() {
     }
   };
 
-  // ✅ Improved modal opening with validation
+  // ✅ Modal opening
   const handleOpenModal = () => {
     const validationErrors = validatePatientData(patientData);
     if (validationErrors.length > 0) {
@@ -186,42 +182,34 @@ export default function AbdominalScanPage() {
     },
   ];
 
-  const completedSections = organSections.filter((section) =>
-    section.note.trim()
-  ).length;
+  const completedSections = organSections.filter((s) => s.note.trim()).length;
   const progressPercentage = (completedSections / organSections.length) * 100;
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Animated background elements */}
+      {/* Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"
-          style={{ animationDelay: "4s" }}
-        ></div>
+        <div className="absolute -top-40 -right-40 w-72 h-72 sm:w-80 sm:h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-72 h-72 sm:w-80 sm:h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 sm:w-80 sm:h-80 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-4000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto p-6 lg:p-8">
-        {/* Header with glass effect */}
-        <div className="backdrop-blur-sm bg-white/70 rounded-2xl shadow-xl border border-white/20 mb-8 p-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* Header */}
+        <div className="backdrop-blur-sm bg-white/70 rounded-2xl shadow-xl border border-white/20 mb-8 p-4 sm:p-6">
           <HeaderSection />
           <PatientHeader
             form={patientData}
             onInputChange={handlePatientInputChange}
           />
 
-          {/* ✅ Error display */}
+          {/* Errors */}
           {errors.length > 0 && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-sm sm:text-base">
               <h4 className="text-red-800 font-semibold mb-2">
                 Please fix the following errors:
               </h4>
-              <ul className="list-disc list-inside text-red-700 text-sm">
+              <ul className="list-disc list-inside text-red-700">
                 {errors.map((error, index) => (
                   <li key={index}>{error}</li>
                 ))}
@@ -230,19 +218,19 @@ export default function AbdominalScanPage() {
           )}
         </div>
 
-        {/* Title section with progress */}
+        {/* Title */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
             Abdominal Scan Report
           </h1>
-          <div className="max-w-md mx-auto">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div className="max-w-md mx-auto px-2 sm:px-0">
+            <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-2">
               <span>Progress</span>
               <span>
                 {completedSections}/{organSections.length} completed
               </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+            <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3 overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-700 ease-out"
                 style={{ width: `${progressPercentage}%` }}
@@ -251,8 +239,8 @@ export default function AbdominalScanPage() {
           </div>
         </div>
 
-        {/* Organ sections grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
+        {/* Organ sections */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 mb-10">
           {organSections.map((section, index) => {
             const { Component, setNote, color } = section;
             return (
@@ -264,11 +252,10 @@ export default function AbdominalScanPage() {
                   animation: "fadeInUp 0.6s ease-out forwards",
                 }}
               >
-                {/* ✅ Fixed: Using static color classes */}
                 <div
                   className={`h-2 ${colorClasses[color]} rounded-t-xl`}
                 ></div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <Component setNote={setNote} />
                 </div>
               </div>
@@ -276,12 +263,12 @@ export default function AbdominalScanPage() {
           })}
         </div>
 
-        {/* Comments and Conclusion boxes */}
+        {/* Comments / Conclusion */}
         <div className="mb-10">
           <div className="mb-6">
             <label
               htmlFor="comments"
-              className="block text-lg font-semibold mb-2"
+              className="block text-base sm:text-lg font-semibold mb-2"
             >
               Comments
             </label>
@@ -291,7 +278,7 @@ export default function AbdominalScanPage() {
               value={comments}
               onChange={(e) => setComments(e.target.value)}
               rows={4}
-              className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
               placeholder="Enter any additional comments here..."
             ></textarea>
           </div>
@@ -299,7 +286,7 @@ export default function AbdominalScanPage() {
           <div>
             <label
               htmlFor="conclusion"
-              className="block text-lg font-semibold mb-2"
+              className="block text-base sm:text-lg font-semibold mb-2"
             >
               Conclusion
             </label>
@@ -309,7 +296,7 @@ export default function AbdominalScanPage() {
               value={conclusion}
               onChange={(e) => setConclusion(e.target.value)}
               rows={4}
-              className="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full p-3 sm:p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 text-sm sm:text-base"
               placeholder="Enter conclusion here..."
             ></textarea>
           </div>
@@ -320,14 +307,14 @@ export default function AbdominalScanPage() {
           <button
             onClick={handleOpenModal}
             disabled={completedSections === 0 || isLoading}
-            className={`group relative px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+            className={`group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 ${
               completedSections === 0 || isLoading
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 hover:scale-105 hover:shadow-2xl active:scale-95"
             }`}
           >
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <span className="relative flex items-center gap-2">
+            <span className="relative flex justify-center sm:justify-start items-center gap-2">
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
               ) : (
@@ -353,7 +340,7 @@ export default function AbdominalScanPage() {
               )}
               Preview Report
               {completedSections > 0 && !isLoading && (
-                <span className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs">
+                <span className="hidden sm:inline ml-2 px-2 py-1 bg-white/20 rounded-full text-xs">
                   {completedSections} sections
                 </span>
               )}
@@ -361,13 +348,14 @@ export default function AbdominalScanPage() {
           </button>
 
           {completedSections === 0 && (
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-gray-500 text-xs sm:text-sm mt-2">
               Complete at least one section to preview the report
             </p>
           )}
         </div>
       </div>
 
+      {/* Report Modal */}
       <ReportModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

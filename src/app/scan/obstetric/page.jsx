@@ -75,11 +75,7 @@ export default function ObstetricScan() {
   // Calculate completed sections for the preview button
   const getCompletedSections = () => {
     let count = 0;
-
-    // Basic Patient Info
     if (form.patientName || form.patientAge) count++;
-
-    // Basic Fetal Assessment
     if (
       form.foetus ||
       form.lie ||
@@ -89,11 +85,7 @@ export default function ObstetricScan() {
       form.liquor
     )
       count++;
-
-    // Gestational Assessment
     if (form.lmp || form.edd || form.gaWeeks || form.gaDays) count++;
-
-    // Biometric Measurements
     if (
       form.bpd ||
       form.FemurLength ||
@@ -102,13 +94,8 @@ export default function ObstetricScan() {
       form.SelectedSex
     )
       count++;
-
-    // Fetal Characteristics
     if (form.FetalAnomalies) count++;
-
-    // Clinical Notes
     if (form.comments || form.conclusion) count++;
-
     return count;
   };
 
@@ -154,19 +141,21 @@ export default function ObstetricScan() {
   };
 
   const reportContent = (
-    <div
-      id="report-content"
-    >
+    <div id="report-content" className="px-3 sm:px-6 md:px-8 lg:px-12">
       <HeaderSection />
       <PatientHeader form={form} onInputChange={handleInputChange} />
-      <div className="text-center mb-8">
-        <h2 className="text-xl font-bold text-gray-800 border-b-2 border-blue-900 inline-block pb-2">
+
+      {/* Title Section */}
+      <div className="text-center mb-6 sm:mb-8 md:mb-10">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 border-b-2 border-blue-900 inline-block pb-2">
           OBSTETRIC ULTRASOUND REPORT
         </h2>
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-2">
           Comprehensive Fetal Assessment
         </p>
       </div>
+
+      {/* Sections */}
       <BasicFetalAssessment form={form} onInputChange={handleInputChange} />
       <GestationalAssessment
         form={form}
@@ -188,20 +177,20 @@ export default function ObstetricScan() {
       {reportContent}
 
       {/* Preview Report Button */}
-      <div className="text-center mt-8 mb-8 no-print">
+      <div className="text-center mt-6 sm:mt-8 mb-6 sm:mb-10 no-print px-3">
         <button
           onClick={handlePreviewReport}
           disabled={completedSections === 0}
-          className={`group relative px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+          className={`group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 ${
             completedSections === 0
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 hover:scale-105 hover:shadow-2xl active:scale-95"
+              : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 hover:scale-105 hover:shadow-xl active:scale-95"
           }`}
         >
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-          <span className="relative flex items-center gap-2">
+          <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-purple-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+          <span className="relative flex items-center justify-center gap-2">
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -221,7 +210,7 @@ export default function ObstetricScan() {
             </svg>
             Preview Report
             {completedSections > 0 && (
-              <span className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs">
+              <span className="ml-1 sm:ml-2 px-2 py-1 bg-white/20 rounded-full text-[10px] sm:text-xs">
                 {completedSections} sections
               </span>
             )}

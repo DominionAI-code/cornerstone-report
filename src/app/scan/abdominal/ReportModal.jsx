@@ -119,7 +119,7 @@ const ReportModal = ({
             break-inside: avoid;
           }
           .print-compact {
-            font-size: 9pt !important;
+            font-size: 11pt !important;
             line-height: 1.0 !important;
           }
           .print-header {
@@ -130,12 +130,12 @@ const ReportModal = ({
             margin-bottom: 1px !important;
           }
           .print-section h3 {
-            font-size: 9pt !important;
+            font-size: 11pt !important;
             margin-bottom: 1px !important;
             padding-bottom: 1px !important;
           }
           .print-section h4 {
-            font-size: 9pt !important;
+            font-size: 11pt !important;
             margin-bottom: 1px !important;
           }
         }
@@ -146,7 +146,7 @@ const ReportModal = ({
           margin: 0 auto;
           background: white;
           font-family: "Times New Roman", serif;
-          font-size: 9pt;
+          font-size: 11pt;
           line-height: 1.0;
           color: #000;
           overflow: hidden;
@@ -179,7 +179,7 @@ const ReportContent = forwardRef(
 
         {/* Patient Information */}
         <div className="print-section mb-1 avoid-break">
-          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+          <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
             PATIENT INFORMATION
           </h3>
           <div className="grid grid-cols-3 gap-2 text-base">
@@ -215,17 +215,17 @@ const ReportContent = forwardRef(
 
         {/* Scan Findings */}
         <div className="print-section mb-1">
-          <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+          <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
             ULTRASOUND FINDINGS
           </h3>
           {sectionsData.length > 0 ? (
             <div className="space-y-2">
               {sectionsData.map((section, index) => (
                 <div key={index} className="avoid-break">
-                  <h4 className="font-bold text-gray-700 mb-1 text-sm">
+                  <h4 className="font-bold text-gray-700 mb-1 text-base">
                     {section.title.toUpperCase()}:
                   </h4>
-                  <div className="ml-2 text-sm text-gray-800 leading-snug">
+                  <div className="ml-2 text-base text-gray-800 leading-snug">
                     {section.note.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex} className="mb-0.5">
                         {line.trim() || "\u00A0"}
@@ -236,7 +236,7 @@ const ReportContent = forwardRef(
               ))}
             </div>
           ) : (
-            <p className="text-gray-600 italic text-sm">
+            <p className="text-gray-600 italic text-base">
               No findings recorded.
             </p>
           )}
@@ -246,20 +246,20 @@ const ReportContent = forwardRef(
         <div className="print-section mb-1 avoid-break">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+              <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
                 ADDITIONAL COMMENTS
               </h3>
-              <div className="min-h-[70px] border border-gray-300 p-1 text-sm">
+              <div className="min-h-[70px] border border-gray-300 p-1 text-base">
                 <p className="text-gray-800">
                   {comments?.trim() || "No additional comments provided."}
                 </p>
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-bold text-gray-800 mb-1 border-b border-gray-300">
+              <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300">
                 CONCLUSION
               </h3>
-              <div className="min-h-[70px] border border-gray-300 p-1 text-sm">
+              <div className="min-h-[70px] border border-gray-300 p-1 text-base">
                 <p className="text-gray-800">
                   {conclusion?.trim() || "No conclusion provided."}
                 </p>
@@ -271,11 +271,11 @@ const ReportContent = forwardRef(
         {/* Signatures */}
         <div className="mt-1 avoid-break">
           <div className="text-center mt-4">
-            <p className="text-sm font-semibold">
+            <p className="text-base font-semibold">
               Sonographer Signature: ..........................
             </p>
           </div>
-          <div className="mt-2 text-center text-sm text-gray-500">
+          <div className="mt-2 text-center text-xs text-gray-500">
             <p>Report generated on: {new Date().toLocaleString()}</p>
           </div>
         </div>
