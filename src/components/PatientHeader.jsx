@@ -5,10 +5,41 @@ import { useEffect } from "react";
 export default function PatientHeader({ form, onInputChange }) {
   useEffect(() => {
     if (!form.date) {
-      const today = new Date().toISOString().split("T")[0];
-      onInputChange({ target: { name: "date", value: today } });
+      const today = new Date();
+      const formatted = formatDate(today); // dd/mm/yyyy
+      onInputChange({ target: { name: "date", value: formatted } });
     }
   }, [form.date, onInputChange]);
+
+  // Format JS Date object or yyyy-mm-dd string → dd/mm/yyyy
+  const formatDate = (date) => {
+    if (typeof date === "string" && date.includes("-")) {
+      date = new Date(date);
+    }
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  // Custom handler to format and capitalize input before passing to parent
+  const handleInputChange = (e) => {
+    let { name, value, type } = e.target;
+
+    if (type === "date") {
+      // Convert yyyy-mm-dd → dd/mm/yyyy
+      if (value) {
+        const [year, month, day] = value.split("-");
+        value = `${day}/${month}/${year}`;
+      }
+    } else if (name === "patientName" || name === "referredBy") {
+      value = value.replace(/\b\w/g, (char) => char.toUpperCase());
+    } else if (name === "refHospital" || name === "indication") {
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    onInputChange({ target: { name, value } });
+  };
 
   return (
     <div className="w-full max-w-full mx-auto">
@@ -23,20 +54,20 @@ export default function PatientHeader({ form, onInputChange }) {
             label="Patient Name"
             name="patientName"
             value={form.patientName}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
           <InputField
             label="Age"
             name="patientAge"
             value={form.patientAge}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
           <InputField
             label="Date"
             name="date"
             type="date"
-            value={form.date}
-            onChange={onInputChange}
+            value={form.date ? form.date.split("/").reverse().join("-") : ""}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -46,19 +77,19 @@ export default function PatientHeader({ form, onInputChange }) {
             label="Referring Hospital"
             name="refHospital"
             value={form.refHospital}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
           <InputField
             label="Indication"
             name="indication"
             value={form.indication}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
           <InputField
             label="Referred By"
             name="referredBy"
             value={form.referredBy}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
         </div>
       </div>

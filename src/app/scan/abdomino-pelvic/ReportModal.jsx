@@ -143,18 +143,6 @@ const ReportModal = ({
             padding-bottom: 1px !important;
           }
 
-          .print-findings {
-            columns: 2;
-            column-gap: 15px;
-            column-fill: balance;
-          }
-
-          .print-findings .section-item {
-            break-inside: avoid;
-            margin-bottom: 2px;
-          }
-        }
-
         .printable-content {
           width: 210mm;
           max-height: 285mm;
@@ -233,7 +221,7 @@ const ReportContent = forwardRef(
           </h3>
 
           {sectionsData.length > 0 ? (
-            <div className="print-findings">
+            <div className="">
               {sectionsData.map((section, index) => (
                 <div key={index} className="section-item avoid-break">
                   <h4 className="font-bold text-gray-700 mb-1 text-base">

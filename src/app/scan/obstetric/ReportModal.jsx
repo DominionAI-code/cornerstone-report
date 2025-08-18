@@ -225,6 +225,29 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
     }
   };
 
+  // Helper function to safely format dates
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+
+    const s = String(dateString).slice(0, 10);
+
+    if (s.includes("-")) {
+      // yyyy-mm-dd
+      const [y, m, d] = s.split("-");
+      return `${d.padStart(2, "0")}/${m.padStart(2, "0")}/${y}`;
+    }
+
+    if (s.includes("/")) {
+      // dd/mm/yyyy or yyyy/mm/dd
+      const [a, b, c] = s.split("/");
+      if (a.length === 4)
+        return `${c.padStart(2, "0")}/${b.padStart(2, "0")}/${a}`;
+      return `${a.padStart(2, "0")}/${b.padStart(2, "0")}/${c}`;
+    }
+
+    return s;
+  };
+
   return (
     <div ref={ref} className="printable-content print-compact">
       {/* Header */}
@@ -314,10 +337,10 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
         <div className="grid grid-cols-2 gap-4 text-base">
           <div>
             <p>
-              <strong>LMP:</strong> {form.lmp || "N/A"}
+              <strong>LMP:</strong> {formatDate(form.lmp) || "N/A"}
             </p>
             <p>
-              <strong>EDD:</strong> {form.edd || "N/A"}
+              <strong>EDD:</strong> {formatDate(form.edd) || "N/A"}
             </p>
           </div>
           <div>
@@ -399,7 +422,7 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
       </div>
 
       {/* Ultrasound Images/Diagram Space */}
-      <div className="print-section mb-3 avoid-break">
+      {/* <div className="print-section mb-3 avoid-break">
         <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
           ULTRASOUND IMAGES / DIAGRAM
         </h3>
@@ -421,6 +444,104 @@ const ReportContent = forwardRef(({ header, form }, ref) => {
             <p className="text-xs text-gray-200 mt-1">
               Images to be attached or drawn here
             </p>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="print-section mb-3 avoid-break">
+        <h3 className="text-base font-bold text-gray-800 mb-1 border-b border-gray-300 pb-1">
+          ULTRASOUND IMAGES / DIAGRAM
+        </h3>
+
+        <div className="flex space-x-4">
+          {/* Fetal Layout */}
+          <div className="w-1/2 border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center relative">
+            <div className="text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 200 200"
+                className="w-40 h-40 mx-auto opacity-50"
+              >
+                {/* Uterus-like sac */}
+                <ellipse
+                  cx="100"
+                  cy="110"
+                  rx="70"
+                  ry="90"
+                  stroke="gray"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                {/* Opening at the bottom to mimic uterus shape */}
+                <path
+                  d="M30 180 Q100 150 170 180"
+                  stroke="gray"
+                  strokeWidth="2"
+                  fill="none"
+                />
+              </svg>
+              <p className="text-xs text-gray-400 mt-1">
+                Fetal Layout (Stamp Here)
+              </p>
+            </div>
+          </div>
+
+          {/* Placenta Layout */}
+          <div className="w-1/2 border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center relative">
+            <div className="text-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 200 200"
+                className="w-40 h-40 mx-auto opacity-50"
+              >
+                {/* Oval shape */}
+                <ellipse
+                  cx="100"
+                  cy="100"
+                  rx="70"
+                  ry="90"
+                  stroke="gray"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                {/* Overlapping lines (left side) */}
+                <line
+                  x1="40"
+                  y1="40"
+                  x2="40"
+                  y2="160"
+                  stroke="gray"
+                  strokeWidth="2"
+                />
+                <line
+                  x1="45"
+                  y1="45"
+                  x2="45"
+                  y2="155"
+                  stroke="gray"
+                  strokeWidth="2"
+                />
+
+                {/* Labels */}
+                <text
+                  x="100"
+                  y="20"
+                  textAnchor="middle"
+                  className="fill-gray-500 text-xs"
+                >
+                  Anterior
+                </text>
+                <text
+                  x="100"
+                  y="190"
+                  textAnchor="middle"
+                  className="fill-gray-500 text-xs"
+                >
+                  Posterior
+                </text>
+              </svg>
+              <p className="text-xs text-gray-400 mt-1">Placenta Layout</p>
+            </div>
           </div>
         </div>
       </div>

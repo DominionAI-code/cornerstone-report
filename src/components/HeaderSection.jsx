@@ -11,18 +11,18 @@ export default function HeaderSection({ header }) {
           style={{ display: "inline-block" }}
         />
 
-        <div className="text-xs text-left">
+        <div className="text-sm text-left">
           <h1 className="text-lg font-bold text-blue-900">
             {header?.clinicName || "Cornerstone Clinic & Medical Centre"}
           </h1>
-          <p className="text-[15px] text-gray-700">
+          <p className="text-[17px] text-gray-700">
             {header?.address || "No 3, Korede Quarters, Kabba, Kogi State."}
           </p>
-          <p className="text-[15px] text-gray-600">
+          <p className="text-[17px] text-gray-600">
             {header?.department || "Department of Radiology & Imaging"}
           </p>
-          <p className="text-[15px] text-gray-700">
-            {header?.phone || "07035070333, 08036926600"}
+          <p className="text-[17px] text-gray-700">
+            {header?.phone || "07035070333, 07072437781"}
           </p>
         </div>
       </div>
