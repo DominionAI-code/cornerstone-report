@@ -52,6 +52,15 @@ export default function Dashboard() {
       glowColor: "shadow-red-500/25",
     },
     {
+      id: "TwinsTriplet",
+      title: "Obstetric Twins/Triplet",
+      description:
+        "An imaging test that checks twins or triplets growth and health in the womb.",
+      icon: Baby,
+      color: "from-red-600 to-pink-900",
+      glowColor: "shadow-red-500/25",
+    },
+    {
       id: "Abdominal",
       title: "Abdominal Scan",
       description:

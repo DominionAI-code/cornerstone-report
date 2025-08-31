@@ -17,6 +17,12 @@ const scanLinks = [
     color: "from-pink-500 to-rose-600",
   },
   {
+    name: "Obstetric Twins/Triplet",
+    href: "/scan/twinstriplet",
+    icon: "👶",
+    color: "from-pink-600 to-rose-900",
+  },
+  {
     name: "Abdominal Scan",
     href: "/scan/abdominal",
     icon: "🫃",

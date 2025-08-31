@@ -12,9 +12,6 @@ export default function SignatureSection() {
   return (
     <section className="print-section mb-8">
       <div>
-        {/* <p className="text-sm text-gray-600 font-medium mb-2">
-          Sonographer Signature: __________________________
-        </p> */}
         <p className="text-xs text-gray-500 mt-2">
           Report Generated: {currentDateTime || "Loading..."}
         </p>

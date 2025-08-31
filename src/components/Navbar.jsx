@@ -175,7 +175,7 @@ export default function Navbar() {
               />
             </svg>
             <span className="text-xs">
-              No 23, Korede Qtrs, Kabba, Kogi State
+              No 3, Korede Qtrs, Kabba, Kogi State
             </span>
           </div>
 
