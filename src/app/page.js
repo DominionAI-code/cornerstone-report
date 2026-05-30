@@ -93,7 +93,7 @@ export default function Dashboard() {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-        The Facility is Under Maintenance!
+        The Facility is Under Maintenance! <br /> Please check back later.
       </h1>
     </div>
   );
