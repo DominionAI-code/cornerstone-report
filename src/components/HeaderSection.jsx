@@ -22,7 +22,7 @@ export default function HeaderSection({ header }) {
             {header?.department || "Department of Radiology & Imaging"}
           </p>
           <p className="text-[17px] text-gray-700">
-            {header?.phone || "07035070333, 07072437781"}
+            {header?.phone || "07035070338, 07072437781"}
           </p>
         </div>
       </div>

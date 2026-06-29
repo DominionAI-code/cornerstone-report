@@ -14,13 +14,22 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body>
-        <div className="flex h-screen bg-gray-100">
-          <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-            The Facility is Under Maintenance! <br /> Please check back later.
-          </h1>
+      <body className="flex h-screen bg-gray-50">
+        {/* Responsive Sidebar */}
+        <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+
+        {/* Main Content Area */}
+        <div className="flex flex-col flex-1 min-w-0">
+          {/* Navbar with sidebar toggle */}
+          <Navbar onMenuToggle={toggleSidebar} />
+
+          {/* Main Content */}
+          <main className="flex-1 p-3 sm:p-4 md:p-6 overflow-y-auto bg-white">
+            {children}
+          </main>
         </div>
       </body>
+
     </html>
   );
 }
